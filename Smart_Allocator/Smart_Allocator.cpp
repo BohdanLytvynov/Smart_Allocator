@@ -2,19 +2,47 @@
 //
 
 #include <iostream>
+#include <crtdbg.h>
+#include"..\smart_alloc_dll\smart_alloc.h"
+
+allocator::smart_allocator<int> Returning()
+{
+	return allocator::smart_allocator<int>(20);
+}
+
+void DisposeTest()
+{
+	allocator::smart_allocator<int> alloc(23);	
+}
+
+void ExcepTest()
+{
+	try
+	{
+		allocator::smart_allocator<char> test('e');		
+
+		throw std::exception("Test");
+	}
+	catch (const std::exception&)
+	{
+		return;
+	}
+}
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    int flag = _CrtSetDbgFlag(_CRTDBG_REPORT_FLAG);
+    flag |= _CRTDBG_LEAK_CHECK_DF;
+    _CrtSetDbgFlag(flag);
+
+    std::cout << "Memory Leak Testing!\n";
+
+	allocator::smart_allocator<int> res = Returning();
+
+	DisposeTest();
+
+	ExcepTest();
+
+	
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
