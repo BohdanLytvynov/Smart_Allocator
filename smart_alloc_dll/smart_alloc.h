@@ -8,8 +8,8 @@
 #include <vector>
 
 namespace allocator
-{
-	templ
+{		
+	templ		
 		struct smart_allocator
 	{
 		/// <summary>
@@ -98,7 +98,6 @@ namespace allocator
 					}
 				);
 			}
-
 		}
 
 		/// <summary>
